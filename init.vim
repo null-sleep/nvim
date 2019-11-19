@@ -1,4 +1,3 @@
-
 let mapleader="\<SPACE>"
 
 syntax on
@@ -13,11 +12,21 @@ set nojoinspaces	        " Prevent 2 spaces after punctuation
 set autoindent              " Enable autoindent
 set incsearch               " search as characters are entered
 set hlsearch                " highlight matches
+set hidden                  " if hidden is not set, TextEdit might fail.
 
 set listchars=eol:↵,trail:~,tab:>-,nbsp:␣
 set ignorecase              " Make searching case insensitive
 set smartcase               " ... unless the query has capital letters
-set clipboard=unnamedplus   " Work with the system clipboard
+set clipboard=unnamedplus   " Work with the system clipboarDCommenterToggle
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 " Map Esc
 imap jj <ESC>
@@ -25,6 +34,8 @@ imap jj <ESC>
 " All plugins go here
 call plug#begin('~/.vim/plugged')
 
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'rafi/awesome-vim-colorschemes'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf'}
@@ -33,16 +44,21 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'ycm-core/YouCompleteMe'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'psliwka/vim-smoothie'
+Plug 'jiangmiao/auto-pairs'
+Plug 'scrooloose/nerdcommenter'
+Plug 'derekwyatt/vim-scala'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
 " Theme
 set background=dark
-colorscheme PaperColor
+colorscheme PaperColor "onedark dracula PaperColor
+let g:lightline = { 'colorscheme': 'PaperColor' } " onedark
 
 " Whitespace stuff
 let g:strip_whitespace_confirm = 0
@@ -86,5 +102,15 @@ function! SetProjectDirectory()
     "NERDTreeToggle
 endfunction
 
-nnoremap <silent> <C-p> :Files<CR>
+nnoremap <C-p> :Files<Cr>
+nnoremap <C-g> :Rg<Cr>
+nmap <A-/> <plug>NERDCommenterToggle
+
 autocmd BufEnter * silent! call SetProjectDirectory()
+
+" Configuration for vim-scala
+au BufRead,BufNewFile *.sbt set filetype=scala
+
+" coc.vim settings
+set nobackup
+set nowritebackup
