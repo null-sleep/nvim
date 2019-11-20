@@ -7,6 +7,7 @@ set showmatch 		        " Show matching brackets
 set number 		            " Show line numbers
 set formatoptions+=o 	    " Continue comment on new line
 set expandtab		        " Tabs convert to spaces
+set smarttab                " Be smart when using tabs ;)
 set tabstop=4		        " Set tab length
 set shiftwidth=4	        " Indentation amount for < and > commands
 set nojoinspaces	        " Prevent 2 spaces after punctuation
@@ -21,9 +22,17 @@ set listchars=eol:↵,trail:~,tab:>-,nbsp:␣
 set ignorecase              " Make searching case insensitive
 set smartcase               " ... unless the query has capital letters
 set clipboard=unnamedplus   " Work with the system clipboarDCommenterToggle
+" set backspace=eol,start,indent
+set noerrorbells            " No bells to hear
+set novisualbell            " No bells to see
+set noswapfile              " Dont make swap files, most stuff is in git anyway
+set wrap                    " Wrap lines
 
 " Map Esc
 imap jj <ESC>
+
+" Map redo
+noremap r <C-R>
 
 " All plugins go here
 call plug#begin('~/.vim/plugged')
@@ -112,10 +121,17 @@ autocmd BufEnter * silent! call SetProjectDirectory()
 
 " Navigation
 let g:smoothie_use_default_mappings = v:false
-nmap <C-j> <Plug>(SmoothieDownwards)
-nmap <C-k> <Plug>(SmoothieUpwards)
+nmap <S-j> <Plug>(SmoothieDownwards)
+nmap <S-k> <Plug>(SmoothieUpwardsr
 nmap <C-d> <Plug>(SmoothieDownwards)
 nmap <C-u> <Plug>(SmoothieUpwards)
+
+" Simpler navigation between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
 
 " Configuration for vim-scala
 " au BufRead,BufNewFile *.sbt set filetype=scala
