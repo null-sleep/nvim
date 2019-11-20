@@ -1,6 +1,7 @@
 let mapleader="\<SPACE>"
 
-syntax on
+syntax enable
+filetype plugin indent on
 set encoding=UTF-8          " Set encoding to utf-8
 set showmatch 		        " Show matching brackets
 set number 		            " Show line numbers
@@ -9,11 +10,13 @@ set expandtab		        " Tabs convert to spaces
 set tabstop=4		        " Set tab length
 set shiftwidth=4	        " Indentation amount for < and > commands
 set nojoinspaces	        " Prevent 2 spaces after punctuation
-set autoindent              " Enable autoindent
-set incsearch               " search as characters are entered
-set hlsearch                " highlight matches
-set hidden                  " if hidden is not set, TextEdit might fail.
-
+set autoindent              " copy indent from current line when starting a new line
+set smartindent             " even better autoindent (e.g. add indent after '{')
+set incsearch               " Search as characters are entered
+set hlsearch                " Highlight matches
+set mouse=a                 " Enable mouse support
+set wildmenu                " visual autocomplete for command menu
+set autoread                " autoreload the file in Vim if changed outside of Vim
 set listchars=eol:↵,trail:~,tab:>-,nbsp:␣
 set ignorecase              " Make searching case insensitive
 set smartcase               " ... unless the query has capital letters
@@ -99,11 +102,20 @@ function! SetProjectDirectory()
     "NERDTreeToggle
 endfunction
 
-nnoremap <C-p> :Files<Cr>
 nnoremap <C-g> :Rg<Cr>
+" Must disable <C-f> binding from vim-smoothie
+nnoremap <C-f> :BLines<Cr>
+nnoremap <C-p> :Files<Cr>
 nmap <A-/> <plug>NERDCommenterToggle
 
 autocmd BufEnter * silent! call SetProjectDirectory()
+
+" Navigation
+let g:smoothie_use_default_mappings = v:false
+nmap <C-j> <Plug>(SmoothieDownwards)
+nmap <C-k> <Plug>(SmoothieUpwards)
+nmap <C-d> <Plug>(SmoothieDownwards)
+nmap <C-u> <Plug>(SmoothieUpwards)
 
 " Configuration for vim-scala
 " au BufRead,BufNewFile *.sbt set filetype=scala
