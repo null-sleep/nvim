@@ -121,8 +121,8 @@ autocmd BufEnter * silent! call SetProjectDirectory()
 
 " Navigation
 let g:smoothie_use_default_mappings = v:false
-nmap <S-j> <Plug>(SmoothieDownwards)
-nmap <S-k> <Plug>(SmoothieUpwardsr
+nmap <S-d> <Plug>(SmoothieDownwards)
+nmap <S-u> <Plug>(SmoothieUpwards)i
 nmap <C-d> <Plug>(SmoothieDownwards)
 nmap <C-u> <Plug>(SmoothieUpwards)
 
@@ -229,9 +229,10 @@ xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
-" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-nmap <silent> <C-d> <Plug>(coc-range-select)
-xmap <silent> <C-d> <Plug>(coc-range-select)
+" Use <tab> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+nmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
