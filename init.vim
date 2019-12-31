@@ -52,6 +52,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'psliwka/vim-smoothie'
 Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdcommenter'
+Plug 'derekwyatt/vim-scala'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sheerun/vim-polyglot'
 
@@ -90,6 +91,8 @@ let g:lightline = {
   \   'gitbranch': 'fugitive#head'
   \ },
   \ }
+
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 "Nerd Tree Stuff
 map <C-n> :NERDTreeToggle<CR>
@@ -134,8 +137,10 @@ map <C-l> <C-W>l
 
 
 " Configuration for vim-scala
-" au BufRead,BufNewFile *.sbt set filetype=scala
+au BufRead,BufNewFile *.sbt set filetype=scala
 
+" JSON comment highlighting
+autocmd FileType json syntax match Comment +\/\/.\+$+
 " coc.vim settings
 " some servers have issues with backup files, see #649
 set nobackup
